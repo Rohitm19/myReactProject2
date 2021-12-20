@@ -1,23 +1,24 @@
 import './index.css'
+import { useState } from 'react';
 
-function content() {
+function Content() {
+    const [name, setName] = useState();
+    const [count, setCount] = useState(0);
 
     const handleName = () => {
         const names = ["Bob", "Kevin", "James"];
         const randomName = Math.floor(Math.random() * 3);
-        return names[randomName];
+        setName(names[randomName]);
     }
 
     const handleClick1 = () => {
-        console.log("Button1 is selected");
+        setCount(count + 1);
+        setCount(count + 1);
+        console.log(count);
     }
 
     const handleClick2 = (button) => {
-        console.log(`${button} is selected`);
-    }
-
-    const handleClick3 = (e) => {
-        console.log(e.target.innerText);
+        console.log(count)
     }
 
     const handleDoubleClick = () => {
@@ -26,13 +27,13 @@ function content() {
 
     return (
         <main >
-            <p onDoubleClick={handleDoubleClick}>Hii {handleName()} !!!!</p>
-            <button onClick={handleClick1}>Button1</button>
-            <button onClick={() => handleClick2("Button2")}>Button2</button>
-            <button onClick={(e) => handleClick3(e)}>Button3</button>
+            <p onDoubleClick={handleDoubleClick}>Hii {name} !!!!</p>
+            <button onClick={handleName}>Change my name</button> 
+            <button onClick={handleClick1}>Click it</button><h1>{count}</h1>
+            <button onClick={handleClick2}>Click it</button>
 
         </main>
     )
 }
 
-export default content;
+export default Content;
