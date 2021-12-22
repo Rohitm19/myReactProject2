@@ -1,37 +1,59 @@
 import './index.css'
 import { useState } from 'react';
+import { FaTrashAlt } from 'react-icons/fa'
 
 function Content() {
-    const [name, setName] = useState();
-    const [count, setCount] = useState(0);
+    const [items, setItems] = useState([
+        {
+            id: "0",
+            checked: false,
+            item: "Coke"
+        },
+        {
+            id: "1",
+            checked: false,
+            item: "Pepsi"
+        },
+        {
+            id: "2",
+            checked: false,
+            item: "Mountian Dew"
+        }
+    ]);
 
-    const handleName = () => {
-        const names = ["Bob", "Kevin", "James"];
-        const randomName = Math.floor(Math.random() * 3);
-        setName(names[randomName]);
+    const handleCheck = (id) => {
+        const listItems = items.map((item) => item.id === id ? {
+            ...item,
+            checked: !item.checked
+        } : item);
+        setItems(listItems);
+        localStorage.setItems('shoppingList', JSON.stringify(listItems));
     }
 
-    const handleClick1 = () => {
-        setCount(count + 1);
-        setCount(count + 1);
-        console.log(count);
-    }
-
-    const handleClick2 = (button) => {
-        console.log(count)
-    }
-
-    const handleDoubleClick = () => {
-        console.log("DoublecLick");
+    const handleDelete = (id) => {
+        const listItems = items.filter((item) => item.id !== id);
+        setItems(listItems);
+        localStorage.setItems('shoppingList', JSON.stringify(listItems));
     }
 
     return (
         <main >
-            <p onDoubleClick={handleDoubleClick}>Hii {name} !!!!</p>
-            <button onClick={handleName}>Change my name</button> 
-            <button onClick={handleClick1}>Click it</button><h1>{count}</h1>
-            <button onClick={handleClick2}>Click it</button>
-
+            {items.length ? (
+                <ul>
+                    {items.map((item) => (
+                        <li className='item' key={item.id}>
+                            <input type="checkbox" onChange={() => handleCheck(item.id)} checked={item.checked} />
+                            <label
+                                style={item.checked ? { textDecoration: 'line-through' } : null}
+                                onDoubleClick={() => handleCheck(item.id)}> {item.item}</label>
+                            <FaTrashAlt
+                                onClick={() => handleDelete(item.id)}
+                                role="button" tabIndex={0} />
+                        </li>
+                    ))}
+                </ul>
+            ) : (<p style={{ marginTop: '2rem' }}>No items in your cart</p>)
+            }
         </main>
     )
 }
