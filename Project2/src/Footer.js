@@ -1,10 +1,10 @@
 import './index.css'
-const Footer = () => {
-    const date = new Date();
+const Footer = ({length}) => {
+    // const date = new Date();
 
     return (
         <footer className= "footer">
-          <p>Copyrigth &copy; {date.getFullYear()}</p>
+          <p>{length} {length > 1 ? "items" : "item"} in your cart </p>
         </footer>
     )
 }
