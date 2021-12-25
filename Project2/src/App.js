@@ -5,23 +5,7 @@ import { useState } from 'react';
 import AddItem from './AddItem';
 
 function App() {
-  const [items, setItems] = useState([
-    {
-      id: "0",
-      checked: false,
-      item: "Coke"
-    },
-    {
-      id: "1",
-      checked: false,
-      item: "Pepsi"
-    },
-    {
-      id: "2",
-      checked: false,
-      item: "Mountian Dew"
-    }
-  ]);
+  const [items, setItems] = useState(JSON.parse(localStorage.getItem('shoppingList')));   /// here you can load the local storage content by parsing the json and using get
 
   const [newItem, setNewItem] = useState('');
 
@@ -55,7 +39,7 @@ function App() {
 
   const setAndSaveItems = (listItems) => {
     setItems(listItems);
-    localStorage.setItem('shoppingList', JSON.stringify(listItems));
+    localStorage.setItem('shoppingList', JSON.stringify(listItems));  // you can store ypur data in local storage by stringfying the json data and set it to a name called shoppingList
   }
 
   return (
@@ -67,5 +51,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
