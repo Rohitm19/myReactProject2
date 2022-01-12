@@ -1,0 +1,33 @@
+1. second parameter in a usestate is it function which is invoked?
+2. everything in curly brackets is javaScript right, so why not call a function with paranthesis 
+  for eg : <button onClick={increment}>Increment</button>
+            why not <button onClick={increment()}>Increment</button>
+3.If you want to return something in REACT use paranthesis '()'. Whatever logic is put inside the () will be return.why are functions not written in parentheses in jsx 	 	
+  Q.Why do we call the functions without parentheses i.e. '()'?  
+    We created two functions: passwordEvent() and confirmPasswordEvent(). Normally when you call a function, you have to include parentheses like we did in an earlier course when we created a random number alert.
+    function alertRandom() { var randomNumber = Math.floor( Math.random() * 6 ) + 1; alert(randomNumber); }
+    alertRandom(); //notice the parentheses after 'alertRandom'
+    Yet when we call the functions in '$($password).focus(passwordEvent).etc' we do not put the parentheses after the functions we call. Why is that? Shouldn't the last lines of code look like '$($password).focus(passwordEvent()).etc'?
+ 
+  A.Without parentheses you're not actually calling the function. A function name without the parentheses is a reference to the function.
+    We don't use the parentheses in that code because we don't want the function to be called at the point where that code is encountered. Instead, we want to pass a reference to our function into the .focus() method and that method will call our function for us whenever the element receive focus.
+    With this code $($password).focus(passwordEvent()) what would happen is that the passwordEvent function would be called immediately and the return value of that function is what would get passed into the focus method. This doesn't work because the focus method is expecting a function to be passed in.
+
+4. setcount(count + 1)
+   console.log(count);
+   even though setCount changes the count state it is not reflected the same in console
+
+5. Expected an assignment or function call and instead saw an expression no-unused-expressions  url-https://www.akashmittal.com/expected-assignment-no-unused-expressions/
+   someArray.map((ele) => (
+  <div>{ele}</div>
+   ))
+   
+   is same as 
+   
+   someArray.map((ele) => {
+  return <div>{ele}</div>
+  })
+So, you can see that (some jsx) is same as {return(some jsx)}. But you can use parenthesis for returning only when the whole scope is to be
+returned and no separate computation is to be done.
+
+6. value attrivute in input
