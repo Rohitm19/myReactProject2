@@ -11,19 +11,21 @@ function App() {
   const [newItem, setNewItem] = useState('');
   const [search, setSearch] = useState('');
 
+  const setAndSaveItems = (saveItems) => {
+    setItems(saveItems);
+    localStorage.setItem('shoppingList', JSON.stringify(saveItems));  // you can store ypur data in local storage by stringfying the json data and set it to a name called shoppingList
+  }
+
 
   const addNewItem = (newItem) => {  //function to add new item in items array
     const newId = items.length ? items[items.length - 1].id + 1 : 1;
-    const myNewItemObject = { newId, newChecked: false, item: newItem };
+    const myNewItemObject = { id: newId, checked: false, item: newItem };
     const listItems = [...items, myNewItemObject];
     setAndSaveItems(listItems);
   }
 
   const handleCheck = (id) => {
-    const listItems = items.map((item) => item.id === id ? {
-      ...item,
-      checked: !item.checked
-    } : item);
+    const listItems = items.map((item) => item.id === id ? { ...item, checked: !item.checked } : item);
     setAndSaveItems(listItems);
   }
 
@@ -36,14 +38,11 @@ function App() {
     e.preventDefault(); // since we are using an html form tag ... it reloads the page whenever a value is entered. so to prevent the reloading of form we must use e.preventdefault()
     if (!newItem) return  // because we used the required attribute in the input we really should not get a blank value submitted but we can check for it by a condition if newitem is undefined or false they we can return and exit.
     // console.log(newItems);
-    addNewItem(newItem);
     setNewItem('');
+    addNewItem(newItem);
   }
 
-  const setAndSaveItems = (listItems) => {
-    setItems(listItems);
-    localStorage.setItem('shoppingList', JSON.stringify(listItems));  // you can store ypur data in local storage by stringfying the json data and set it to a name called shoppingList
-  }
+
 
   return (
     <div className="App">
@@ -58,6 +57,5 @@ function App() {
     </div>
   );
 }
-
 
 export default App;
