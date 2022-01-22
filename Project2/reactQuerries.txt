@@ -31,3 +31,5 @@ So, you can see that (some jsx) is same as {return(some jsx)}. But you can use p
 returned and no separate computation is to be done.
 
 6. value attrivute in input
+
+7. difference between npx and npi

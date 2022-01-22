@@ -3,46 +3,41 @@ import AddItem from './AddItem';
 import SearchItem from './SearchItem';
 import Content from './Content';
 import Footer from './Footer';
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
 
 function App() {
-  const [items, setItems] = useState(JSON.parse(localStorage.getItem('shoppingList')));   /// here you can load the local storage content by parsing the json and using get
+  const [items, setItems] = useState(JSON.parse(localStorage.getItem('shoppingList')) || []);   /// here you can load the local storage content by parsing the json and using getItem. || [] is condition to show empty data if the component is loaded for the first time with no data available in local storage.
   const [newItem, setNewItem] = useState('');
   const [search, setSearch] = useState('');
 
-  const setAndSaveItems = (saveItems) => {
-    setItems(saveItems);
-    localStorage.setItem('shoppingList', JSON.stringify(saveItems));  // you can store ypur data in local storage by stringfying the json data and set it to a name called shoppingList
-  }
+  useEffect(() => {
+    localStorage.setItem('shoppingList', JSON.stringify(items)); // you can store ypur data in local storage by stringfying the json data and set it to a name called shoppingList
+  }, [items]);
 
-
-  const addNewItem = (newItem) => {  //function to add new item in items array
+  const addNewItem = (newItem) => {  // function to add new item in items array
     const newId = items.length ? items[items.length - 1].id + 1 : 1;
     const myNewItemObject = { id: newId, checked: false, item: newItem };
     const listItems = [...items, myNewItemObject];
-    setAndSaveItems(listItems);
+    setItems(listItems);
   }
 
   const handleCheck = (id) => {
     const listItems = items.map((item) => item.id === id ? { ...item, checked: !item.checked } : item);
-    setAndSaveItems(listItems);
+    setItems(listItems);
   }
 
   const handleDelete = (id) => {
     const listItems = items.filter((item) => item.id !== id);
-    setAndSaveItems(listItems);
+    setItems(listItems);
   }
 
   const handleSubmit = (e) => {
     e.preventDefault(); // since we are using an html form tag ... it reloads the page whenever a value is entered. so to prevent the reloading of form we must use e.preventdefault()
-    if (!newItem) return  // because we used the required attribute in the input we really should not get a blank value submitted but we can check for it by a condition if newitem is undefined or false they we can return and exit.
+    if (!newItem) return  // because we used the required attribute in the input we really should not get a blank value submitted but we can check for it by a condition if newitem is undefined or false. if it is undefined or false then we can return and exit the function; since no value is enterred and submitted.
     // console.log(newItems);
     setNewItem('');
     addNewItem(newItem);
   }
-
-
 
   return (
     <div className="App">

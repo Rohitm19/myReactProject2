@@ -1,0 +1,58 @@
+First creating a component
+what is a component?
+A compnent is file where we write the js logic along with html and css inside a function.
+Javascript with the help of components creates html. So we dont need to write html seperately.
+So react helps you create components(html inside a funciton), so that this compoents are used to 
+render the dom.
+
+Use Arrow function for onClick
+
+We need to use className for css. Since everything we write is in js and in js class means a constructor
+hence classnName is used.
+
+className: 
+An attribute used to specify a CSS class. This applies to all regular DOM and SVG elements like <div>, <a> & others.
+
+Props:
+React allows us to pass information to a Component using something called props (stands for properties).
+Props are basically kind of global variable or object
+
+useState:
+useState is a Hook that allows you to have state variables in functional components. You pass the initial state to this 
+function and it returns a variable with the current state value (not necessarily the initial state) and another 
+function to update this value.
+
+Props are used to pass data, whereas state is for managing data. Data from props is read-only, and cannot be modified
+by a component that is receiving it from outside. State data can be modified by its own component, 
+but is private (cannot be accessed from outside).
+
+useEffect:
+What does useEffect do? By using this Hook, you tell React that your component needs to do something after render. 
+React will remember the function you passed (we'll refer to it as our “effect”), and call it later after performing 
+the DOM updates.
+whatever passed inside useEffect will run as soon as dom gets loaded. and everytime the page refreshes or anything 
+renders on the page useEffect will keep on executing. We can stop the execution to only once by adding an empty aray as 
+a second argument. The second argument is usually the dependancy for which the useEffect looks for. On the basis of 
+the dependancy the useeffect will run. If the dependency changes then the useEffect will run whatever is written 
+inside. For example if the dependency is state variable, any change in state variable will allow useEffect to run. 
+  
+If you want to return something in REACT use paranthesis '()'. Whatever logic is put inside the () will be return.
+
+events:
+e is an event object. e is the event, which in this case is change, target is the element that triggered the event, which in this case is the input, 
+and value is the value of the input element
+
+required attribute:
+The required attribute is a boolean attribute. When present, it specifies that an input field must be filled out before submitting the form.
+
+value attribute:
+the value attribute will show whatever value you assign to it. for eg if value = "xyz" then on the frontend it will show xyz in input field. 
+value attribute should be initially set. In React, form data is usually handled by the components.When the data is handled by the components, all the data is stored in the component state.
+You can control changes by adding event handlers in the onChange attribute. We can use the useState Hook to keep track of each inputs value and provide a "single source of truth" for the entire application.
+So in react you can assign value = {state variable} initially which will be taken as input value and can be seen in frontend. Also in react if you dont provide the value attribute you can find a warning or an error
+saying "A component is changing a controlled input to be uncontrolled. This is likely caused by the value changing from a defined to undefined, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component".
+This is because there is no initial value provided to the form. so in react you can assign state variable to the value attribute.
+
+The style attribute accepts a JavaScript object with camelCased properties rather than a CSS string.
+ 
+npx json-server -p 3500 -w Data/db.json

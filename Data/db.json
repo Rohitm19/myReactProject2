@@ -1,0 +1,20 @@
+{
+    "items": [
+        {
+            "id": 0,
+            "checked": false,
+            "item": "Coke"
+        },
+        {
+            "id": "1",
+            "checked": false,
+            "item": "Pepsi"
+        },
+        {
+            "id": "2",
+            "checked": false,
+            "item": "Mountian Dew"
+        }
+    ]
+}
+
