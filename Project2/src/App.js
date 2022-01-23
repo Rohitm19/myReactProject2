@@ -6,13 +6,35 @@ import Footer from './Footer';
 import { useState, useEffect } from 'react';
 
 function App() {
-  const [items, setItems] = useState(JSON.parse(localStorage.getItem('shoppingList')) || []);   /// here you can load the local storage content by parsing the json and using getItem. || [] is condition to show empty data if the component is loaded for the first time with no data available in local storage.
+  const API_URL = "http://localhost:3500/items";
+  const [items, setItems] = useState([]);   /// here you can load the local storage content by parsing the json and using getItem. || [] is condition to show empty data if the component is loaded for the first time with no data available in local storage.
   const [newItem, setNewItem] = useState('');
   const [search, setSearch] = useState('');
+  const [fetchError, setfetchError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    localStorage.setItem('shoppingList', JSON.stringify(items)); // you can store ypur data in local storage by stringfying the json data and set it to a name called shoppingList
-  }, [items]);
+    const fetchItems = async () => {
+      try {
+        const response = await fetch(API_URL);
+        if (!(response.ok)) throw Error("Did not receive expected data.")
+        const listItems = await response.json();
+        setItems(listItems);
+        setfetchError(null);
+      }
+      catch (err) {
+        setfetchError(err.message);
+      }
+      finally {
+        setIsLoading(false);
+      }
+    }
+    setTimeout(() => {
+      fetchItems();
+    }, 2000)  // using setTimeout to simulate the loading time (if the api response is slow or not).
+
+    // (async () => { await fetchItems() })(); // IIFE (instantly invoked function expression)
+  }, []);
 
   const addNewItem = (newItem) => {  // function to add new item in items array
     const newId = items.length ? items[items.length - 1].id + 1 : 1;
@@ -44,10 +66,15 @@ function App() {
       <Header title={"Groceries"} />
       <AddItem newItem={newItem} setNewItem={setNewItem} handleCheck={handleCheck} handleDelete={handleCheck} handleSubmit={handleSubmit} />
       <SearchItem search={search} setSearch={setSearch} />
-      <Content items={items.filter((item) => ((item.item).toLowerCase()).includes(search.toLocaleLowerCase()))}
-        handleCheck={handleCheck}
-        handleDelete={handleDelete}
-      />
+      <main>
+        {isLoading && <p>Loading items....</p>}
+        {fetchError && <p style={{ color: "red" }}>{`Error: ${fetchError}`}</p>}
+        {!fetchError && !isLoading &&
+          <Content items={items.filter((item) => ((item.item).toLowerCase()).includes(search.toLocaleLowerCase()))}
+            handleCheck={handleCheck}
+            handleDelete={handleDelete}
+          />}
+      </main>
       <Footer length={items.length} />
     </div>
   );

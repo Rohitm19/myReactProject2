@@ -33,3 +33,7 @@ returned and no separate computation is to be done.
 6. value attrivute in input
 
 7. difference between npx and npi
+
+8. fragment in react and parent child role
+
+9. What is IIFE (instantly invoked function expression)?
