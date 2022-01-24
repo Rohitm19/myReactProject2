@@ -37,3 +37,5 @@ returned and no separate computation is to be done.
 8. fragment in react and parent child role
 
 9. What is IIFE (instantly invoked function expression)?
+
+10. 404, 304 and 204 responses and its meaning?

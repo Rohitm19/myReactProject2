@@ -3,10 +3,11 @@ import AddItem from './AddItem';
 import SearchItem from './SearchItem';
 import Content from './Content';
 import Footer from './Footer';
+import apiRequest from './apiRequest';
 import { useState, useEffect } from 'react';
 
 function App() {
-  const API_URL = "http://localhost:3500/items";
+  const API_URL = " http://localhost:3100/items";
   const [items, setItems] = useState([]);   /// here you can load the local storage content by parsing the json and using getItem. || [] is condition to show empty data if the component is loaded for the first time with no data available in local storage.
   const [newItem, setNewItem] = useState('');
   const [search, setSearch] = useState('');
@@ -32,25 +33,52 @@ function App() {
     setTimeout(() => {
       fetchItems();
     }, 2000)  // using setTimeout to simulate the loading time (if the api response is slow or not).
-
     // (async () => { await fetchItems() })(); // IIFE (instantly invoked function expression)
   }, []);
 
-  const addNewItem = (newItem) => {  // function to add new item in items array
+  const addNewItem = async (newItem) => {  // function to add new item in items array
     const newId = items.length ? items[items.length - 1].id + 1 : 1;
     const myNewItemObject = { id: newId, checked: false, item: newItem };
     const listItems = [...items, myNewItemObject];
     setItems(listItems);
+
+    const postOptions = {
+      method: "post",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(myNewItemObject)   // since we are updation the new item to the db.json using post request,  we only require the newObject to be converted into json object and post it.
+    };
+    const result = await apiRequest(API_URL, postOptions);
+    if (result) setfetchError(result);
   }
 
-  const handleCheck = (id) => {
+  const handleCheck = async (id) => {
     const listItems = items.map((item) => item.id === id ? { ...item, checked: !item.checked } : item);
     setItems(listItems);
+
+    const myItem = listItems.filter((item) => item.id === id);
+    const updateOptions = {
+      method: 'PATCH',       //PATCH should be uppercase.
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({ checked: myItem[0].checked })// since filter method returns an array. therefore myItem should be now myitem[filtered item]. myitem[0] returns the first item of the array. [0] this is actually not required as the array consist of only one item because we have filtered out only one item that matches the id.   
+    }
+
+    const idURL = `${API_URL}/${id}` // since we are updating check staus for specific id we can filter out the required item object using id params in querry
+    const result = await apiRequest(idURL, updateOptions);
+    if (result) setfetchError(result);
   }
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     const listItems = items.filter((item) => item.id !== id);
     setItems(listItems);
+
+    const deleteOptions = { method: "DELETE" };
+    const idURL = `${API_URL}/${id}` // since we are updating check staus for specific id we can filter out the required item object using id params in querry
+    const result = await apiRequest(idURL, deleteOptions);
+    if (result) setfetchError(result);
   }
 
   const handleSubmit = (e) => {

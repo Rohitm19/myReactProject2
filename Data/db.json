@@ -1,20 +1,24 @@
 {
-    "items": [
-        {
-            "id": 0,
-            "checked": false,
-            "item": "Coke"
-        },
-        {
-            "id": "1",
-            "checked": false,
-            "item": "Pepsi"
-        },
-        {
-            "id": "2",
-            "checked": false,
-            "item": "Mountian Dew"
-        }
-    ]
+  "items": [
+    {
+      "id": 1,
+      "checked": false,
+      "item": "Coke"
+    },
+    {
+      "id": 2,
+      "checked": false,
+      "item": "Fries"
+    },
+    {
+      "id": 3,
+      "checked": false,
+      "item": "Burger"
+    },
+    {
+      "id": 4,
+      "checked": false,
+      "item": "T-Shirts"
+    }
+  ]
 }
-
