@@ -1,0 +1,56 @@
+A method is an function in an object
+
+'===' this means strictly equal
+  keeping track of the state
+  expressions passsed into conditions are converted to boolean values 'true' or 'false' by javaScript. if(a=b) --> if(true) or if(false).
+  no condtion can be applied to else . to apply any condtion use else if (condition)     
+
+how to link external css to html
+  {/* <link rel="stylesheet" href= "url or index.css"></link> */}. rel defines the relation between html and link that is style sheet
+
+everything that is created in css file is the selector
+
+document.queryselector("#sum-el") -- here we have to be more specific with the value we pass into the paranthesis. We use "#" infront of the "sum-el"
+  to tell the selector it is actually the id of sum-el that we are looking for because unless the document.getElementById we are not specifying the id 
+  in the method name that is querySelector. querry = question or search and selector=css selectors, so we are kind of asking for element by its selector
+  and then we specify the selectors inside the "()".
+  so it gets the css body and querries the id name mentioned by #. Since it uses css we can replace id by class 
+  for eg <p class="sum-el"><p>
+  so then we can use document.queryselector(".sum-el"). Replace "#" with ".". orelse we can also say document.queryselector("body"). but using body 
+  it will change the entire body elements mentioned.
+
+Arrays
+  They are also called as composite/ complex data type. This means array is composed of many datatypes. 
+  Where as  boolean, strings and numbers are primitve datatypes which means they not composed of many other data types.
+  cards = [1,2]
+  newCard = 6 
+  cards.push(newCard)// to push a value
+  console.log(cards);
+  cards.pop()// this will pop out the last array value starting from left. also no need to pass the value here.
+
+for loop
+     start       finish     stepsize
+for( let i=1;    i<21;       i += 1 ){
+  console.log(i)
+}
+
+Math.random()
+It gives numbers between 0.000 to 0.99999
+so Math.random() * 6 gives 0.0000 to 5.999999
+
+Math.floor
+it simply removes the decimals
+for eg: Math.floor(3.45632) = 3
+
+AND operaor
+if(a=true){
+  if (b = true)
+}
+the above code can also be written as 
+if( a=true && b=true){
+   do something;
+} ....here we are using AND operator to replace a nested if statement. 
+if( a && b){
+   do something;
+}  
+

@@ -59,7 +59,7 @@ npx json-server -p 3500 -w Data/db.json
 
 Everything you type inside {} is JavaScript
 
-learn about hiher order functions such as .map() and .filter() and their syntax. Also look at arrow functions.
+learn about higher order functions such as .map() and .filter() and their syntax. Also look at arrow functions.
 
 JSX and how to use it.
  { JavaScript }   (html)

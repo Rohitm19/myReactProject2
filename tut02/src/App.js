@@ -8,6 +8,7 @@ import Missing from './Missing';
 import Footer from './Footer';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { format } from 'date-fns';
 
 function App() {
   const [posts, setPosts] = useState([{
@@ -36,7 +37,9 @@ function App() {
   }]);
 
   const [search, setSearch] = useState(''); // use '' when you know search is going to be a string.
-  const [searchResult, setsearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState([]);
+  const [postTitle, setPostTitle] = useState('');
+  const [postBody, setPostBody] = useState('');
   const history = useHistory();
 
   const handleDelete = (id) => {
@@ -45,18 +48,44 @@ function App() {
     history.push('/');
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const id = posts.length ? posts[posts.length - 1].id + 1 : 1;
+    const dateTime = format(new Date(), 'MMMM dd, yyyy pp');
+    const newPost = { id, title: postTitle, datetime: dateTime, body: postBody };
+    const completePosts = [...posts, newPost];
+    setPosts(completePosts);
+    setPostTitle('');
+    setPostBody('');
+    history.push('/');
+  }
+
+  useEffect(() => {
+    const filteredResult = posts.filter((post) => (
+      ((post.body).toLowerCase()).includes(search.toLowerCase())
+      || ((post.title).toLowerCase()).includes(search.toLowerCase())))
+    setSearchResult(filteredResult.reverse());
+
+  }, [posts, search]);
+
   return (
     <div className="App">
       <Header title={"React Blogs..."} />
       <Nav search={search} setSearch={setSearch} />
       <Switch>
         <Route exact path='/'>
-          <Home posts={posts} setPosts={setPosts} />
+          <Home posts={searchResult} />
         </Route>
         <Route exact path='/post'>
-          <NewPost />
+          <NewPost
+            postTitle={postTitle}
+            setPostTitle={setPostTitle}
+            postBody={postBody}
+            setPostBody={setPostBody}
+            handleSubmit={handleSubmit}
+          />
         </Route>
-        <Route path='/post/:id'>
+        <Route exact path='/post/:id'>
           <PostPage posts={posts} handleDelete={handleDelete} />
         </Route>
         <Route path='/about' component={About} />

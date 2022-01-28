@@ -4,7 +4,7 @@ const Feed = ({ posts }) => {
     return (
         <>
             {posts.map((post) =>
-                (<Post key={post.id} post={post} />)    // element tags must be wrraped aroound using () and not {}.
+                (<Post key={post.id} post={post} />)    // element tags must be wrraped around using () and not {}.
             )}
         </>
     );
