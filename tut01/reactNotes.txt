@@ -56,3 +56,17 @@ This is because there is no initial value provided to the form. so in react you 
 The style attribute accepts a JavaScript object with camelCased properties rather than a CSS string.
  
 npx json-server -p 3500 -w Data/db.json
+
+Everything you type inside {} is JavaScript
+
+learn about hiher order functions such as .map() and .filter() and their syntax. Also look at arrow functions.
+
+JSX and how to use it.
+ { JavaScript }   (html)
+
+
+ (  {JavaScript}  )  // to use JavaScript inside a html braces.
+
+ {  (html)   }   // to use html inside a JavaScript curly braces.
+
+ Cannot use {} insode a higher order functions.

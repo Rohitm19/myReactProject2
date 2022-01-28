@@ -10,19 +10,54 @@ import { Route, Switch, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 function App() {
+  const [posts, setPosts] = useState([{
+    id: 1,
+    title: "My 1st Post",
+    datetime: "July 01, 2021 11:17:36 AM",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis consequatur expedita, assumenda similique non optio! Modi nesciunt excepturi corrupti atque blanditiis quo nobis, non optio quae possimus illum exercitationem ipsa!"
+  },
+  {
+    id: 2,
+    title: "My 2nd Post",
+    datetime: "July 01, 2021 11:17:36 AM",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis consequatur expedita, assumenda similique non optio! Modi nesciunt excepturi corrupti atque blanditiis quo nobis, non optio quae possimus illum exercitationem ipsa!"
+  },
+  {
+    id: 3,
+    title: "My 3rd Post",
+    datetime: "July 01, 2021 11:17:36 AM",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis consequatur expedita, assumenda similique non optio! Modi nesciunt excepturi corrupti atque blanditiis quo nobis, non optio quae possimus illum exercitationem ipsa!"
+  },
+  {
+    id: 4,
+    title: "My 4th Post",
+    datetime: "July 01, 2021 11:17:36 AM",
+    body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis consequatur expedita, assumenda similique non optio! Modi nesciunt excepturi corrupti atque blanditiis quo nobis, non optio quae possimus illum exercitationem ipsa!"
+  }]);
+
+  const [search, setSearch] = useState(''); // use '' when you know search is going to be a string.
+  const [searchResult, setsearchResult] = useState([]);
+  const history = useHistory();
+
+  const handleDelete = (id) => {
+    const postLists = posts.filter((post => post.id !== id))
+    setPosts(postLists);
+    history.push('/');
+  }
+
   return (
     <div className="App">
-      <Header />
-      <Nav />
+      <Header title={"React Blogs..."} />
+      <Nav search={search} setSearch={setSearch} />
       <Switch>
         <Route exact path='/'>
-          <Home />
+          <Home posts={posts} setPosts={setPosts} />
         </Route>
         <Route exact path='/post'>
           <NewPost />
         </Route>
         <Route path='/post/:id'>
-          <PostPage />
+          <PostPage posts={posts} handleDelete={handleDelete} />
         </Route>
         <Route path='/about' component={About} />
         <Route path='*' component={Missing} />
